@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FilterValuesType, todolistsActions, todolistsThunks } from "features/TodolistsList/model/tasks/todolists/todolists.reducerr
 import { tasksThunks } from "features/TodolistsList/model/tasks/tasks.reducer";
 import { Grid, Paper } from "@mui/material";
 import { AddItemForm } from "common/components";
@@ -8,11 +7,15 @@ import { AddItemForm } from "common/components";
 import { Navigate } from "react-router-dom";
 import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/model/auth.selectors";
-import { selectTasks } from "features/TodolistsList/model/tasks/tasks.selectors";
-// import { selectTodolists } from "features/TodolistsList/model/todolists/todolists.selectors";
 import { TaskStatuses } from "common/enums";
 import { Todolist } from "features/TodolistsList/Todolist/Todolist";
-import { selectTodolists } from "features/TodolistsList/model/tasks/todolists/todolists.selectorss
+import {
+  FilterValuesType,
+  todolistsActions,
+  todolistsThunks,
+} from "features/TodolistsList/model/tasks/todolists/todolists.reducer";
+import { selectTodolists } from "features/TodolistsList/model/tasks/todolists/todolists.selectors";
+import { selectTasks } from "features/TodolistsList/tasks.selectors";
 
 export const TodolistsList = () => {
   const todolists = useSelector(selectTodolists);
@@ -26,7 +29,7 @@ export const TodolistsList = () => {
     changeTodolistTitle: changeTodolistTitleThunk,
   } = useActions(todolistsThunks);
 
-  const { addTask: addTaskThunk, removeTask: removeTaskThunk, updateTask } = useActions(tasksThunks);
+  const { addTask: addTaskThunk } = useActions(tasksThunks);
   const { changeTodolistFilter } = useActions(todolistsActions);
 
   useEffect(() => {
@@ -36,20 +39,8 @@ export const TodolistsList = () => {
     fetchTodolists();
   }, []);
 
-  const removeTask = useCallback(function (taskId: string, todolistId: string) {
-    removeTaskThunk({ taskId, todolistId });
-  }, []);
-
   const addTask = useCallback(function (title: string, todolistId: string) {
     addTaskThunk({ title, todolistId });
-  }, []);
-
-  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-    updateTask({ taskId, domainModel: { status }, todolistId });
-  }, []);
-
-  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-    updateTask({ taskId, domainModel: { title }, todolistId });
   }, []);
 
   const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
@@ -87,12 +78,9 @@ export const TodolistsList = () => {
                 <Todolist
                   todolist={tl}
                   tasks={allTodolistTasks}
-                  removeTask={removeTask}
                   changeFilter={changeFilter}
                   addTask={addTask}
-                  changeTaskStatus={changeStatus}
                   removeTodolist={removeTodolist}
-                  changeTaskTitle={changeTaskTitle}
                   changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
