@@ -8,7 +8,7 @@ type Props = {
     
   };
 
- export const FilterTacksButton=({todolist}:Props)=>{
+ export const FilterTasksButton=({todolist}:Props)=>{
     const { changeTodolistFilter } = useActions(todolistsActions);
 
     const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {

@@ -8,7 +8,7 @@ import { TaskType } from "features/TodolistsList/api/todolists.api";
 import { TaskStatuses } from "common/enums";
 import { useActions } from "common/hooks";
 import { AddItemForm, EditableSpan } from "common/components";
-import { FilterTacksButton } from "features/TodolistsList/Todolist/Task/FilterTasksButton/FilterTasksButton";
+import { FilterTasksButton } from "features/TodolistsList/Todolist/Task/FilterTasksButton/FilterTasksButton";
 
 type Props = {
   todolist: TodolistDomainType;
@@ -75,7 +75,7 @@ export const Todolist = React.memo(function ({todolist,tasks,removeTodolist,chan
         {/*Buttons*/}
       </div>
       <div style={{ paddingTop: "10px" }}>
-       <FilterTacksButton todolist={todolist} />
+       <FilterTasksButton todolist={todolist} />
       </div>
     </div>
   );
