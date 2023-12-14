@@ -11,35 +11,32 @@ type Props = {
  export const FilterTasksButton=({todolist}:Props)=>{
     const { changeTodolistFilter } = useActions(todolistsActions);
 
-    const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
-        changeTodolistFilter({ id, filter });
-      }, []);
-    const onAllClickHandler = () => changeFilter("all", todolist.id)
-       
-      const onActiveClickHandler = () => changeFilter("active", todolist.id)
-       
-      const onCompletedClickHandler = () => changeFilter("completed", todolist.id)
+    
+    
+      const filterTasksHandler=(filter: FilterValuesType)=>{
+        changeTodolistFilter({id:todolist.id,filter});
+      }
         
     return(
        
       <div>
         <Button
           variant={todolist.filter === "all" ? "outlined" : "text"}
-          onClick={onAllClickHandler}
+          onClick={()=>filterTasksHandler('all')}
           color={"inherit"}
         >
           All
         </Button>
         <Button
           variant={todolist.filter === "active" ? "outlined" : "text"}
-          onClick={onActiveClickHandler}
+          onClick={()=>filterTasksHandler('active')}
           color={"primary"}
         >
           Active
         </Button>
         <Button
           variant={todolist.filter === "completed" ? "outlined" : "text"}
-          onClick={onCompletedClickHandler}
+          onClick={()=>filterTasksHandler('completed')}
           color={"secondary"}
         >
           Completed

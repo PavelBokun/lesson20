@@ -23,13 +23,11 @@ export const TodolistsList = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const {
-    removeTodolist: removeTodolistThunk,
-    addTodolist: addTodolistThunk,
+    // removeTodolist: removeTodolistThunk,
+    addTodolist,
     fetchTodolists,
-    changeTodolistTitle: changeTodolistTitleThunk,
+    // changeTodolistTitle: changeTodolistTitleThunk,
   } = useActions(todolistsThunks);
-
- 
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -38,18 +36,8 @@ export const TodolistsList = () => {
     fetchTodolists();
   }, []);
 
- 
-
-  const removeTodolist = useCallback(function (id: string) {
-    removeTodolistThunk(id);
-  }, []);
-
-  const changeTodolistTitle = useCallback(function (id: string, title: string) {
-    changeTodolistTitleThunk({ id, title });
-  }, []);
-
-  const addTodolist = useCallback((title: string) => {
-    addTodolistThunk(title);
+  const addTodolistcb = useCallback((title: string) => {
+    addTodolist(title);
   }, []);
 
   if (!isLoggedIn) {
@@ -59,7 +47,7 @@ export const TodolistsList = () => {
   return (
     <>
       <Grid container style={{ padding: "20px" }}>
-        <AddItemForm addItem={addTodolist} />
+        <AddItemForm addItem={addTodolistcb} />
       </Grid>
       <Grid container spacing={3}>
         {todolists.map((tl) => {
@@ -72,8 +60,8 @@ export const TodolistsList = () => {
                   todolist={tl}
                   tasks={allTodolistTasks}
                   // changeFilter={changeFilter}
-                  removeTodolist={removeTodolist}
-                  changeTodolistTitle={changeTodolistTitle}
+                  // removeTodolist={removeTodolist}
+                  // changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
             </Grid>
